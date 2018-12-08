@@ -1,0 +1,4 @@
+*.pyc
+symbols.dat
+output.dat
+env/
