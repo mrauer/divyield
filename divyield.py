@@ -15,7 +15,7 @@ def get_symbols():
     return len(symbols)
 
 
-def get_dividends(stock_symbol):
+def get_dividends(stock_symbol, qualified):
     """Get 5yr dividends when available."""
     api_url = '/'.join(['https://api.iextrading.com/1.0/stock',
                         stock_symbol, 'dividends/5y'])
@@ -24,6 +24,10 @@ def get_dividends(stock_symbol):
     history = len(response)
     records = []
     for record in response:
+        # Break if the dividend is not qualified
+        if qualified and record['qualified'] != 'Q':
+            print '>> Not Qualified'
+            break
         records.append(record['amount'])
     avg = statistics.mean(records)
     stdev = statistics.stdev(records)

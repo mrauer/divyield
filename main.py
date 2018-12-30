@@ -14,13 +14,17 @@ if sys.argv > 1:
         f = open('./symbols.dat', 'r')
         f2 = open('./output.dat', 'w')
         symbols = f.read().split('\n')
+        qualified = None
+        if 'qualified' in args:
+            qualified = 'Q'
+
         for symbol in symbols:
             history = None
             avg = None
             stdev = None
             print ' '.join(['Computing', symbol])
             try:
-                history, avg, stdev = divyield.get_dividends(symbol)
+                history, avg, stdev = divyield.get_dividends(symbol, qualified)
             except Exception, e:
                 print e
                 continue
