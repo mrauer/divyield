@@ -21,3 +21,4 @@ We will be identifying the following attributes at the stock level:
     python -m virtualenv env
     ./env/bin/python main.py '{"action": "update"}'
     ./env/bin/python main.py '{"action": "dividends"}'
+    ./env/bin/python main.py '{"action": "dividends", "qualified": "Q"}' # About 12.7%
