@@ -43,5 +43,5 @@ def get_chart(stock_symbol):
     records = []
     for record in response:
         records.append(record['close'])
-    stock_price = records[-1]
+    stock_price = float(records[-1])
     return stock_price
