@@ -4,6 +4,8 @@ import time
 
 import divyield
 
+invested = float(1000)
+
 if sys.argv > 1:
     args = json.loads(sys.argv[1])
     # Update the list of symbols.
@@ -11,9 +13,9 @@ if sys.argv > 1:
         print divyield.get_symbols()
 
     if 'action' in args and args['action'] == 'dividends':
-        f = open('./symbols.dat', 'r')
-        f2 = open('./output.dat', 'w')
-        symbols = f.read().split('\n')
+        r = open('./symbols.dat', 'r')
+        w = open('./output.dat', 'w')
+        symbols = r.read().split('\n')
         qualified = None
         if 'qualified' in args:
             qualified = 'Q'
@@ -32,14 +34,22 @@ if sys.argv > 1:
             if history and avg and stdev:
                 try:
                     stock_price = divyield.get_chart(symbol)
-                    dv = float(avg)/float(stock_price)
-                    f3 = open('./output.dat', 'a')
-                    f3.write(','.join([str(symbol), str(history),
-                                       str(stdev), str(dv)])+'\n')
-                    f3.close()
+                    div_yield = float(avg)/stock_price
+                    # Calculating the yearly gain.
+                    num_stocks = invested/stock_price
+                    per_stock = div_yield * stock_price
+                    yearly_gain = num_stocks * per_stock
+                    # Writing the output file.
+                    a = open('./output.dat', 'a')
+                    a.write(','.join([str(symbol), str(history),
+                                      str(stdev), str(div_yield),
+                                      str(stock_price), str(int(num_stocks)),
+                                      str(int(per_stock)),
+                                      str(yearly_gain)])+'\n')
+                    a.close()
                     time.sleep(1)
                 except Exception, e:
                     print e
                     continue
-        f.close()
-        f2.close()
+        r.close()
+        w.close()
