@@ -4,7 +4,10 @@ import requests
 
 
 def get_symbols():
-    """Get symbols and overwrite input file."""
+    """
+    Get the most recent set of existing symbols from the API.
+    :returns:int: number of symbols found.
+    """
     r = requests.get('https://api.iextrading.com/1.0/ref-data/symbols')
     symbols = r.json()
     f = open('./symbols.dat', 'w')
@@ -16,7 +19,14 @@ def get_symbols():
 
 
 def get_dividends(stock_symbol, qualified):
-    """Get 5yr dividends when available."""
+    """
+    Get 5yr dividends when available.
+    :param stock_symbol: str. Symbol of the stock.
+    :param qualified:str: 'Q' when qualified.
+    :returns:history:int: number of records found.
+    :returns:avg:float: avg stock amount value.
+    :returns:stdev:float: standard deviation of the distribution.
+    """
     api_url = '/'.join(['https://api.iextrading.com/1.0/stock',
                         stock_symbol, 'dividends/5y'])
     r = requests.get(api_url)
@@ -35,7 +45,11 @@ def get_dividends(stock_symbol, qualified):
 
 
 def get_chart(stock_symbol):
-    """Get stock info such as current valuation."""
+    """
+    Get current valuation of a stock.
+    :param stock_symbol: str. Symbol of the stock.
+    :returns:stock_price:float: current valuation.
+    """
     api_url = '/'.join(['https://api.iextrading.com/1.0/stock',
                         stock_symbol, 'chart/1m'])
     r = requests.get(api_url)
@@ -48,6 +62,11 @@ def get_chart(stock_symbol):
 
 
 def ratio_from_all_time_high(stock_symbol):
+    """
+    Compute the current ratio from the all time high [0, 1]
+    :param stock_symbol: str. Symbol of the stock.
+    :returns:ratio:float: ratio from all time high.
+    """
     api_url = '/'.join(['https://api.iextrading.com/1.0/stock',
                         stock_symbol, 'chart/5y'])
     r = requests.get(api_url)

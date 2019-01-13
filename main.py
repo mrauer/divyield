@@ -4,6 +4,7 @@ import time
 
 import divyield
 
+# Pet symbol amount imvested.
 invested = float(1000)
 
 if sys.argv > 1:
@@ -17,9 +18,11 @@ if sys.argv > 1:
         w = open('./output.dat', 'w')
         symbols = r.read().split('\n')
         qualified = None
+
         if 'qualified' in args:
             qualified = 'Q'
 
+        # Iterate on each individual stock.
         for symbol in symbols:
             history = None
             avg = None
