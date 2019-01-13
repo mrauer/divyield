@@ -4,7 +4,7 @@ import time
 
 import divyield
 
-# Pet symbol amount imvested.
+# Per symbol amount invested.
 invested = float(1000)
 
 if sys.argv > 1:
@@ -18,7 +18,6 @@ if sys.argv > 1:
         w = open('./output.dat', 'w')
         symbols = r.read().split('\n')
         qualified = None
-
         if 'qualified' in args:
             qualified = 'Q'
 
