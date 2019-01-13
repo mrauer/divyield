@@ -4,6 +4,7 @@ import time
 
 import divyield
 
+# Per symbol amount invested.
 invested = float(1000)
 
 if sys.argv > 1:
@@ -20,6 +21,7 @@ if sys.argv > 1:
         if 'qualified' in args:
             qualified = 'Q'
 
+        # Iterate on each individual stock.
         for symbol in symbols:
             history = None
             avg = None
