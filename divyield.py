@@ -45,3 +45,15 @@ def get_chart(stock_symbol):
         records.append(record['close'])
     stock_price = float(records[-1])
     return stock_price
+
+
+def ratio_from_all_time_high(stock_symbol):
+    api_url = '/'.join(['https://api.iextrading.com/1.0/stock',
+                        stock_symbol, 'chart/5y'])
+    r = requests.get(api_url)
+    response = r.json()
+    records = []
+    for record in response:
+        records.append(float(record['high']))
+    ratio = records[-1] / max(records)
+    return ratio

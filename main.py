@@ -39,13 +39,15 @@ if sys.argv > 1:
                     num_stocks = invested/stock_price
                     per_stock = div_yield * stock_price
                     yearly_gain = num_stocks * per_stock
+                    # Ratio from all time high.
+                    ratio = divyield.ratio_from_all_time_high(symbol)
                     # Writing the output file.
                     a = open('./output.dat', 'a')
                     a.write(','.join([str(symbol), str(history),
                                       str(stdev), str(div_yield),
                                       str(stock_price), str(int(num_stocks)),
                                       str(int(per_stock)),
-                                      str(yearly_gain)])+'\n')
+                                      str(yearly_gain), str(ratio)])+'\n')
                     a.close()
                     time.sleep(1)
                 except Exception, e:
